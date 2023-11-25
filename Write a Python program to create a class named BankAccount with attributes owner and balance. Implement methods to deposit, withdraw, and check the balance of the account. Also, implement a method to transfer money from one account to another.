@@ -1,0 +1,52 @@
+class BankAccount:
+    def __init__(self, owner, balance=0.0):
+        self.owner = owner
+        self.balance = balance
+
+    def deposit(self, amount):
+        if amount > 0:
+            self.balance += amount
+            return f"Deposit of ${amount} successful. New balance: ${self.balance}"
+        else:
+            return "Invalid deposit amount. Please enter a positive value."
+
+    def withdraw(self, amount):
+        if amount > 0 and amount <= self.balance:
+            self.balance -= amount
+            return f"Withdrawal of ${amount} successful. New balance: ${self.balance}"
+        elif amount > self.balance:
+            return "Insufficient funds for withdrawal."
+        else:
+            return "Invalid withdrawal amount. Please enter a positive value."
+
+    def check_balance(self):
+        return f"Current balance for {self.owner}: ${self.balance}"
+
+    def transfer(self, other_account, amount):
+        if amount > 0 and amount <= self.balance:
+            self.balance -= amount
+            other_account.balance += amount
+            return f"Transfer of ${amount} to {other_account.owner} successful. Your new balance: ${self.balance}"
+        elif amount > self.balance:
+            return "Insufficient funds for transfer."
+        else:
+            return "Invalid transfer amount. Please enter a positive value."
+
+if __name__ == "__main__":
+    # Creating two BankAccount objects
+    account1 = BankAccount("Alice", 1000.0)
+    account2 = BankAccount("Bob", 500.0)
+
+    # Depositing and withdrawing from account1
+    print(account1.deposit(200))
+    print(account1.withdraw(150))
+
+    # Checking balance of account1
+    print(account1.check_balance())
+
+    # Transferring money from account1 to account2
+    print(account1.transfer(account2, 100))
+
+    # Checking balances after the transfer
+    print(account1.check_balance())
+    print(account2.check_balance())
