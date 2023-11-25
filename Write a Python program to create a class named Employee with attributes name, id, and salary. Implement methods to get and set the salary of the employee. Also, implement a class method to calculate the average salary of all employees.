@@ -1,0 +1,38 @@
+class Employee:
+    employees = []
+
+    def __init__(self, name, emp_id, salary):
+        self.name = name
+        self.emp_id = emp_id
+        self._salary = salary  # Using an underscore to denote it as a private variable
+        Employee.employees.append(self)
+
+    @property
+    def salary(self):
+        return self._salary
+
+    @salary.setter
+    def salary(self, new_salary):
+        if new_salary >= 0:
+            self._salary = new_salary
+            return f"Salary for {self.name} updated to ${self._salary}"
+        else:
+            return "Invalid salary. Please enter a non-negative value."
+
+    @classmethod
+    def average_salary(cls):
+        if len(cls.employees) > 0:
+            total_salary = sum(emp._salary for emp in cls.employees)
+            return total_salary / len(cls.employees)
+        else:
+            return "No employees to calculate average salary."
+
+if __name__ == "__main__":
+    emp1 = Employee("Alice", 1, 50000)
+    emp2 = Employee("Bob", 2, 60000)
+    emp3 = Employee("Charlie", 3, 75000)
+
+    print(emp1.salary)  # Getting current salary
+    print(emp1.salary(55000))  # Setting new salary
+
+    print(Employee.average_salary())
