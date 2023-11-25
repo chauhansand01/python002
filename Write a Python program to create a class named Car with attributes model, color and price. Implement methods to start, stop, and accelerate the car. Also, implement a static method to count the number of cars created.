@@ -1,0 +1,44 @@
+class Car:
+    car_count = 0
+
+    def __init__(self, model, color, price):
+        self.model = model
+        self.color = color
+        self.price = price
+        self.is_running = False
+        Car.car_count += 1
+
+    def start(self):
+        if not self.is_running:
+            self.is_running = True
+            return f"{self.color} {self.model} started."
+        else:
+            return f"{self.color} {self.model} is already running."
+
+    def stop(self):
+        if self.is_running:
+            self.is_running = False
+            return f"{self.color} {self.model} stopped."
+        else:
+            return f"{self.color} {self.model} is already stopped."
+
+    def accelerate(self):
+        if self.is_running:
+            return f"{self.color} {self.model} is accelerating."
+        else:
+            return f"{self.color} {self.model} cannot accelerate when stopped."
+
+    @staticmethod
+    def count_cars():
+        return f"Total number of cars created: {Car.car_count}"
+
+if __name__ == "__main__":
+    car1 = Car("Toyota", "Blue", 25000)
+    car2 = Car("Honda", "Red", 30000)
+    car3 = Car("Ford", "Green", 20000)
+
+    print(car1.start())
+    print(car2.accelerate())
+    print(car3.stop())
+
+    print(Car.count_cars())
