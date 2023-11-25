@@ -1,0 +1,43 @@
+class Stack:
+    def __init__(self):
+        self.items = []
+
+    def push(self, item):
+        self.items.append(item)
+
+    def pop(self):
+        if not self.is_empty():
+            return self.items.pop()
+        else:
+            return "Cannot pop from an empty stack."
+
+    def is_empty(self):
+        return len(self.items) == 0
+
+    def __iter__(self):
+        self.current = len(self.items) - 1
+        return self
+
+    def __next__(self):
+        if self.current >= 0:
+            item = self.items[self.current]
+            self.current -= 1
+            return item
+        else:
+            raise StopIteration
+
+if __name__ == "__main__":
+    stack = Stack()
+
+    stack.push(1)
+    stack.push(2)
+    stack.push(3)
+
+    print("Popped:", stack.pop())
+    print("Popped:", stack.pop())
+
+    print("Is stack empty?", stack.is_empty())
+
+    print("\nIterating through the stack in LIFO order:")
+    for item in stack:
+        print(item)
